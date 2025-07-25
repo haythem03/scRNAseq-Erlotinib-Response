@@ -17,4 +17,6 @@ def load_and_optimize(filename, chunksize=1000):
         print(f"❌ Error loading {filename}: {str(e)}")
         return None
 
-
+def subsample_data(adata, fraction=0.5):
+    """Subsample a fraction of the data to reduce memory usage."""
+    return adata[:int(fraction * adata.n_obs), :]
