@@ -10,3 +10,20 @@ The analysis includes:
 🧠 Biological interpretation focusing on drug resistance mechanisms
 
 🧬 Integration of results with known EGFR pathways and oncogenic markers
+
+## 📁 Repository Structure
+
+scRNAseq-Erlotinib-Response/
+├── Data/ # Raw data files (expression matrices)
+│ ├── Day0_control.txt.gz
+│ ├── Day11_control.txt.gz
+│ └── Day11_Erlotinib.txt.gz
+│
+├── Script/ # Python scripts for analysis and setup
+│ └── install_requirements.py
+│ └── RNAseq_script.py
+├── requirements/ # Dependency files
+│ ├── requirements.txt
+│ └── README.md
+│
+└── README.md # This file
