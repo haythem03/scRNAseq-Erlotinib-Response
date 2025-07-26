@@ -30,3 +30,90 @@ d11_erl = load_and_optimize('Data/Day11_Erlotinib.txt.gz')
 if None in (d0c, d11c, d11_erl):
     print("❌ Error loading one or more datasets. Exiting.")
     exit()
+
+# ------------------- Annotate and Subsample -------------------
+
+d0c.obs['condition'] = 'D0_Control'
+d11c.obs['condition'] = 'D11_Control'
+d11_erl.obs['condition'] = 'D11_Erlotinib'
+
+d0c = subsample_data(d0c)
+d11c = subsample_data(d11c)
+d11_erl = subsample_data(d11_erl)
+
+adata = d0c.concatenate(d11c, d11_erl, batch_key='sample_batch')
+print(f"🧬 Cells: {adata.n_obs}, Genes: {adata.n_vars}")
+
+# ------------------- Quality Control -------------------
+
+sc.pp.filter_cells(adata, min_genes=200)
+sc.pp.filter_genes(adata, min_cells=3)
+adata.var['mt'] = adata.var_names.str.startswith('MT-')
+sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
+
+sc.pl.violin(adata, ['n_genes_by_counts', 'total_counts', 'pct_counts_mt'],
+             jitter=0.4, multi_panel=True, size=2)
+
+adata = adata[adata.obs.n_genes_by_counts < 3500, :]
+adata = adata[adata.obs.pct_counts_mt < 15, :]
+print(f"🧪 After filtering: {adata.n_obs} cells")
+
+# ------------------- Normalization & HVGs -------------------
+
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+sc.pl.highly_variable_genes(adata)
+
+adata = adata[:, adata.var.highly_variable]
+print(f"🎯 Retained {adata.n_vars} highly variable genes")
+
+# ------------------- Scaling & Dimensionality Reduction -------------------
+
+sc.pp.scale(adata, max_value=10)
+adata.write('preprocessed_data.h5ad')
+
+sc.pl.scatter(adata, x='total_counts', y='n_genes_by_counts', color='pct_counts_mt', save='_genes_vs_counts.png')
+sc.pl.highly_variable_genes(adata, save='_highly_variable_genes.png')
+
+# ------------------- Clustering -------------------
+
+sc.pp.pca(adata, n_comps=50)
+sc.pl.pca_variance_ratio(adata, log=True, save='_pca_variance_ratio.png')
+sc.pp.neighbors(adata, n_neighbors=10, n_pcs=40)
+sc.tl.umap(adata)
+sc.tl.leiden(adata)
+
+sc.pl.umap(adata, color=['leiden', 'condition'], save='_umap_clusters_and_condition.png')
+
+# ------------------- Marker Genes -------------------
+
+sc.tl.rank_genes_groups(adata, 'leiden', method='wilcoxon')
+sc.pl.rank_genes_groups(adata, n_genes=25, sharey=False, save='_marker_genes.png')
+
+# ------------------- Enrichment Analysis -------------------
+
+hv_genes = adata.var_names.tolist()
+enr = gp.enrichr(gene_list=hv_genes,
+                 gene_sets=['GO_Biological_Process_2021'],
+                 organism='Human',
+                 outdir='enrichr_output')
+gp.plot.barplot(enr.results, top_term=20, save='enrichr_top20_GO_BP.png')
+
+# ------------------- Cluster Info -------------------
+
+print("📊 Cluster sizes:")
+print(adata.obs['leiden'].value_counts())
+
+print("🔍 Top marker genes:")
+result = adata.uns['rank_genes_groups']
+groups = result['names'].dtype.names
+for group in groups:
+    print(f"Cluster {group}: {result['names'][group][:10]}")
+
+adata.obs.to_csv('cluster_composition.csv')
+
+# ------------------- Marker Expression -------------------
+
+marker_genes = ['RPS5', 'RPL21', 'NEAT1', 'HMGA1', 'CENPF', 'HMGB2', 'FAM107B']
+sc.pl.umap(adata, color=marker_genes, save='_umap_marker_genes.png')
