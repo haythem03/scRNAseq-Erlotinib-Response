@@ -13,6 +13,7 @@ The analysis includes:
 
 ## Installation
 
+<<<<<<< HEAD
 ### Clone the Repository
 
 Clone this repository to your local machine:
@@ -38,3 +39,4 @@ The main script `RNASeq_script.py` performs the following steps:
 Run the script with:
 ```bash
 python RNASeq_script.py
+```
