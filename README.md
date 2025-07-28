@@ -11,19 +11,12 @@ The analysis includes:
 
 🧬 Integration of results with known EGFR pathways and oncogenic markers
 
-## 📁 Repository Structure
+## Installation
 
-scRNAseq-Erlotinib-Response/
-├── Data/ # Raw data files (expression matrices)
-│ ├── Day0_control.txt.gz
-│ ├── Day11_control.txt.gz
-│ └── Day11_Erlotinib.txt.gz
-│
-├── Script/ # Python scripts for analysis and setup
-│ └── install_requirements.py
-│ └── RNAseq_script.py
-├── requirements/ # Dependency files
-│ ├── requirements.txt
-│ └── README.md
-│
-└── README.md # This file
+### 1. Clone the Repository
+
+Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/yourusername/SingleCell_RNASeq_Pipeline.git
+cd SingleCell_RNASeq_Pipeline
