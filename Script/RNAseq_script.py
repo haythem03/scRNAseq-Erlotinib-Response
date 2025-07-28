@@ -43,3 +43,17 @@ d11_erl = subsample_data(d11_erl)
 
 adata = d0c.concatenate(d11c, d11_erl, batch_key='sample_batch')
 print(f"🧬 Cells: {adata.n_obs}, Genes: {adata.n_vars}")
+
+# ------------------- Quality Control -------------------
+
+sc.pp.filter_cells(adata, min_genes=200)
+sc.pp.filter_genes(adata, min_cells=3)
+adata.var['mt'] = adata.var_names.str.startswith('MT-')
+sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
+
+sc.pl.violin(adata, ['n_genes_by_counts', 'total_counts', 'pct_counts_mt'],
+             jitter=0.4, multi_panel=True, size=2)
+
+adata = adata[adata.obs.n_genes_by_counts < 3500, :]
+adata = adata[adata.obs.pct_counts_mt < 15, :]
+print(f"🧪 After filtering: {adata.n_obs} cells")
