@@ -94,5 +94,5 @@ This document describes the purpose and role of each Python package listed in th
 
 📁 This file belongs in: `requirements/README.md`
 
-📄 For installation instructions, refer to the [main project README](../README.md).
+📄 For installation instructions, refer to the [Install Requirements](..install_requirements.py).
 
