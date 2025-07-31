@@ -57,3 +57,13 @@ sc.pl.violin(adata, ['n_genes_by_counts', 'total_counts', 'pct_counts_mt'],
 adata = adata[adata.obs.n_genes_by_counts < 3500, :]
 adata = adata[adata.obs.pct_counts_mt < 15, :]
 print(f"🧪 After filtering: {adata.n_obs} cells")
+
+# ------------------- Normalization & HVGs -------------------
+
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+sc.pl.highly_variable_genes(adata)
+
+adata = adata[:, adata.var.highly_variable]
+print(f"🎯 Retained {adata.n_vars} highly variable genes")
