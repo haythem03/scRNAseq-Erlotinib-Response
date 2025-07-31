@@ -13,7 +13,7 @@ The analysis includes:
 
 ## Installation
 
-<<<<<<< HEAD
+
 ### Clone the Repository
 
 Clone this repository to your local machine:
@@ -40,3 +40,5 @@ Run the script with:
 ```bash
 python RNASeq_script.py
 ```
+## Workflow 
+<img width="1572" height="960" alt="PFA flowchart" src="https://github.com/user-attachments/assets/5012f41f-18d9-41ca-a326-a0bcd069e28d" />
