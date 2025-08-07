@@ -55,3 +55,10 @@ python RNASeq_script.py
 - Gene Ontology (GO) enrichment analysis of HVGs using Enrichr
 - Visualization of QC metrics, HVGs, PCA variance, UMAP clusters, and marker gene expression
 - Export of cluster composition and marker gene results
+
+## Notes
+
+- The script currently uses a subsampling fraction of 50% to speed up processing; this can be adjusted in the `subsample_data` function.
+- Mitochondrial genes are identified by names starting with `'MT-'` and used for quality filtering.
+- Enrichment analysis is performed using the Enrichr API via the `gseapy` package targeting `"GO_Biological_Process_2021"`.
+- Modify gene lists, input files, and parameters as needed for your specific dataset and biological questions.
