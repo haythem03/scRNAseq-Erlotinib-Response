@@ -42,3 +42,16 @@ python RNASeq_script.py
 ```
 ## Workflow 
 <img width="1572" height="960" alt="PFA flowchart" src="https://github.com/user-attachments/assets/5012f41f-18d9-41ca-a326-a0bcd069e28d" />
+
+## Features
+
+- Efficient loading of large datasets with chunked reading to avoid memory issues
+- Subsampling of cells to reduce memory footprint during exploratory analysis
+- Quality control filtering on cells and genes, including mitochondrial gene percentage filtering
+- Normalization, log transformation, and detection of highly variable genes (HVGs)
+- Dimensionality reduction with PCA and UMAP visualization
+- Clustering using the Leiden algorithm
+- Identification of cluster marker genes via Wilcoxon rank-sum test
+- Gene Ontology (GO) enrichment analysis of HVGs using Enrichr
+- Visualization of QC metrics, HVGs, PCA variance, UMAP clusters, and marker gene expression
+- Export of cluster composition and marker gene results
