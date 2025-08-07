@@ -67,3 +67,21 @@ sc.pl.highly_variable_genes(adata)
 
 adata = adata[:, adata.var.highly_variable]
 print(f"🎯 Retained {adata.n_vars} highly variable genes")
+
+# ------------------- Scaling & Dimensionality Reduction -------------------
+
+sc.pp.scale(adata, max_value=10)
+adata.write('preprocessed_data.h5ad')
+
+sc.pl.scatter(adata, x='total_counts', y='n_genes_by_counts', color='pct_counts_mt', save='_genes_vs_counts.png')
+sc.pl.highly_variable_genes(adata, save='_highly_variable_genes.png')
+
+# ------------------- Clustering -------------------
+
+sc.pp.pca(adata, n_comps=50)
+sc.pl.pca_variance_ratio(adata, log=True, save='_pca_variance_ratio.png')
+sc.pp.neighbors(adata, n_neighbors=10, n_pcs=40)
+sc.tl.umap(adata)
+sc.tl.leiden(adata)
+
+sc.pl.umap(adata, color=['leiden', 'condition'], save='_umap_clusters_and_condition.png')
