@@ -85,3 +85,17 @@ sc.tl.umap(adata)
 sc.tl.leiden(adata)
 
 sc.pl.umap(adata, color=['leiden', 'condition'], save='_umap_clusters_and_condition.png')
+
+# ------------------- Marker Genes -------------------
+
+sc.tl.rank_genes_groups(adata, 'leiden', method='wilcoxon')
+sc.pl.rank_genes_groups(adata, n_genes=25, sharey=False, save='_marker_genes.png')
+
+# ------------------- Enrichment Analysis -------------------
+
+hv_genes = adata.var_names.tolist()
+enr = gp.enrichr(gene_list=hv_genes,
+                 gene_sets=['GO_Biological_Process_2021'],
+                 organism='Human',
+                 outdir='enrichr_output')
+gp.plot.barplot(enr.results, top_term=20, save='enrichr_top20_GO_BP.png')
