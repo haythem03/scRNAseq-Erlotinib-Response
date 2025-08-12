@@ -62,3 +62,15 @@ python RNASeq_script.py
 - Mitochondrial genes are identified by names starting with `'MT-'` and used for quality filtering.
 - Enrichment analysis is performed using the Enrichr API via the `gseapy` package targeting `"GO_Biological_Process_2021"`.
 - Modify gene lists, input files, and parameters as needed for your specific dataset and biological questions.
+
+## Dataset Description
+
+The expression matrices come from GSE147405 and include:
+
+Day 0 Control: Baseline gene expression of untreated cells
+
+Day 11 Control: Cells cultured for 11 days without treatment
+
+Day 11 Erlotinib: Cells treated with Erlotinib for 11 days
+
+For details, check the Data/README.md.
