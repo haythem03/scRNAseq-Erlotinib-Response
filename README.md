@@ -19,7 +19,7 @@ The analysis includes:
 Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/SingleCell_RNASeq_Pipeline.git
+git clone https://github.com/haythem03/SingleCell_RNASeq_Pipeline.git
 cd SingleCell_RNASeq_Pipeline
 ```
 ## Usage
