@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧬 scRNA-seq Erlotinib Response Analysis
+#  scRNA-seq Erlotinib Response Analysis
 
 **Unraveling Transcriptional Resistance in NSCLC using Single-Cell RNA Sequencing**
 
@@ -19,20 +19,20 @@
 
 ---
 
-## 🧭 Overview
+##  Overview
 
 **scRNAseq-Erlotinib-Response** is a specialized computational pipeline designed to analyze the dynamic transcriptional landscape of non-small cell lung cancer (NSCLC) cells. 
 
 This tool focuses on the response to **Erlotinib**, an EGFR tyrosine kinase inhibitor (TKI). By leveraging single-cell RNA sequencing, this pipeline moves beyond bulk averages to identify rare cell subpopulations, uncover drug resistance mechanisms, and map the trajectory of cells under therapeutic stress.
 
-### 🎯 Key Objectives
-* **🔍 Deconvolution:** Preprocessing raw expression matrices to isolate high-quality single-cell data.
-* **📉 Differential Analysis:** Quantifying gene expression shifts between treated and control populations.
-* **🧠 Biological Insight:** Connecting statistical markers to known oncogenic pathways and resistance drivers.
+###  Key Objectives
+* ** Deconvolution:** Preprocessing raw expression matrices to isolate high-quality single-cell data.
+* ** Differential Analysis:** Quantifying gene expression shifts between treated and control populations.
+* ** Biological Insight:** Connecting statistical markers to known oncogenic pathways and resistance drivers.
 
 ---
 
-## 🌊 Workflow
+##  Workflow
 
 The pipeline implements a standard Scanpy-based workflow, optimized for memory efficiency.
 
@@ -42,7 +42,7 @@ The pipeline implements a standard Scanpy-based workflow, optimized for memory e
 
 ---
 
-## 🦠 Dataset Overview
+##  Dataset Overview
 
 The analysis utilizes expression matrices from **GSE147405**, tracking cellular evolution over an 11-day treatment course.
 
@@ -56,14 +56,14 @@ The analysis utilizes expression matrices from **GSE147405**, tracking cellular 
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-### ⚡ Performance & Engineering
+###  Performance & Engineering
 * **Chunked Data Loading:** Efficiently processes massive `.txt.gz` matrices using chunking to manage RAM.
 * **Smart Subsampling:** Automatically downsamples cells (default: 50%) for rapid exploratory analysis and prototyping.
 * **HDF5 Export:** Saves processed AnnData objects as `.h5ad` for fast I/O in downstream tasks.
 
-### 🧬 Bioinformatics & Analytics
+###  Bioinformatics & Analytics
 * **Rigorous QC:** Filters cells based on mitochondrial content, gene counts, and sequencing depth.
 * **Normalization:** Log-transformation and scaling for variance stabilization.
 * **Dimensionality Reduction:** Computes PCA and UMAP embeddings to visualize cellular heterogeneity.
@@ -72,7 +72,7 @@ The analysis utilizes expression matrices from **GSE147405**, tracking cellular 
 
 ---
 
-## 🛠️ Getting Started
+##  Getting Started
 
 ### 1. Installation
 
@@ -106,7 +106,7 @@ The pipeline is designed to be flexible. You can adjust the following parameters
 -   **Mitochondrial Filtering:** Genes starting with `'MT-'` are flagged as mitochondrial. Adjust this pattern if working with non-human species.
 -   **Enrichment Database:** The pipeline uses `"GO_Biological_Process_2021"` via Enrichr. This can be swapped for KEGG, Reactome, or other libraries.
 
-## 📊 Output & Visualization
+##  Output & Visualization
 
 The script automatically generates visualizations to validate data quality and biological findings:
 
@@ -117,7 +117,7 @@ The script automatically generates visualizations to validate data quality and b
 
 5.  ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -142,7 +142,7 @@ Whether you're fixing a bug, improving the documentation, or proposing a new fea
 
 ---
 
-## 📄 License
+##  License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
 
